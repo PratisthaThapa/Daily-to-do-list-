@@ -1,0 +1,15 @@
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/bin/Debug/net7.0/DailyToDoList
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/bin/Debug/net7.0/DailyToDoList.deps.json
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/bin/Debug/net7.0/DailyToDoList.runtimeconfig.json
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/bin/Debug/net7.0/DailyToDoList.dll
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/bin/Debug/net7.0/DailyToDoList.pdb
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.csproj.AssemblyReference.cache
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.GeneratedMSBuildEditorConfig.editorconfig
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.AssemblyInfoInputs.cache
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.AssemblyInfo.cs
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.csproj.CoreCompileInputs.cache
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.dll
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/refint/DailyToDoList.dll
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.pdb
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/DailyToDoList.genruntimeconfig.cache
+/Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/obj/Debug/net7.0/ref/DailyToDoList.dll
