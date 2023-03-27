@@ -1,4 +1,23 @@
 ﻿<Properties StartupConfiguration="{837EBC23-6EB0-4C08-871D-885799E2C0AC}|Default">
-  <MonoDevelop.Ide.ItemProperties.DailyToDoList FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="DailyToDoList/TasksData.cs">
+    <Files>
+      <File FileName="DailyToDoList/TaskData.json" Line="2" Column="18" IsPinned="True" />
+      <File FileName="DailyToDoList/Program.cs" Line="7" Column="1" IsPinned="True" />
+      <File FileName="DailyToDoList/TasksData.cs" Line="16" Column="51" />
+    </Files>
+    <Pads>
+      <Pad Id="ClassPad">
+        <State name="__root__">
+          <Node name="DailyToDoList" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.DailyToDoList PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
 </Properties>
