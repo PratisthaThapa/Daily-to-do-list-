@@ -79,9 +79,30 @@ class Program
         //if match
         //mark task IsComplete = true
 
+        Console.Writeline("type 1 to Add tasks, type 2 to mark task completed, type 3 to display all tasks, type 4 to display completed tasks, type 5 to quit -> break while loop\n");
+        integer UserInput = Console.ReadLine ();
+        if (UserInput = 1)
+        {
+            Console.WriteLine("enter task description");
+        }
 
+        else if (UserInput = 2)
+        {
+            Console.WriteLine("enter the task you want to mark as complete");
+        }
+        else if (UserInput = 3)
+        {
+            Console.WriteLine("All tasks displayed");
+        }
 
+        else if (UserInput = 4)
+        {
+            Console.WriteLine("Completed tasks displayed");
+        }
 
+        else if (UserInput = 5)
+        {
 
+        }
     }
 }
