@@ -18,17 +18,20 @@ class TodoList : List<Task>
     public void DisplayTasks()
     {
         Console.WriteLine("\n Printing all tasks:");
-
-        foreach (Task task in this)
+        Task[] newlist = this.ToArray();
+        for (int index = 0; index <newlist.Length;index++)
         {
+            
             string taskCompeted = " ";
-            if (task.IsComplete)
+            if (newlist[index].IsComplete)
             {
                 taskCompeted = "X";
             }
-
-            Console.WriteLine("{0} [{1}]", task.Description, taskCompeted);
+            Console.WriteLine("index={0} {1} [{2}]",index, newlist[index].Description, taskCompeted);
         }
+
+
+       
     }
 
     public void DisplayCompletedTasks()
@@ -42,6 +45,23 @@ class TodoList : List<Task>
         {
 
             Console.WriteLine("{0} [{1}]", task.Description, task.IsComplete ? "X" : " ");
+       }
+    }
+    public void ErrorLogging(Exception ex)
+    {
+        string strPath = @"\Log.txt";
+        if (!File.Exists(strPath))
+        {
+            File.Create(strPath).Dispose();
+        }
+        using (StreamWriter sw = File.AppendText(strPath))
+        {
+            sw.WriteLine("=============Error Logging ===========");
+            sw.WriteLine("===========Start============= " + DateTime.Now);
+            sw.WriteLine("Error Message: " + ex.Message);
+            sw.WriteLine("Stack Trace: " + ex.StackTrace);
+            sw.WriteLine("===========End============= " + DateTime.Now);
+
         }
     }
 }
@@ -63,83 +83,67 @@ class Program
         List<string> completedTasks = new List<string>();
         todoList[0].IsComplete = true;
 
-        //in a while loop
-        //print type 1 to Add tasks, type 2 to mark task completed, type 3 to display all tasks, type 4 to display completed tasks, type 5 to quit -> break while loop
-        //if 1
-        //print enter task description
-        //take user's input         Console.ReadLine();
-        // mark isComplete = false
-        // add the task to todoList
-        //if 2
-        //ask user for description of which task to mark complete
-        // lowercase user's input and task descriptions from todoList and see if they match
-        //if match
-        //mark task IsComplete = true
+     
 
-        Console.WriteLine("type 1 to Add tasks, type 2 to mark task completed, type 3 to display all tasks, type 4 to display completed tasks, type 5 to quit \n");
-        string UserInput = Console.ReadLine();
-        int parsedInput = int.Parse(UserInput);
-
-        while (parsedInput < 6)
+        while ( true) 
+      
+        
         {
+            Console.WriteLine("type 1 to Add tasks, type 2 to mark task completed, type 3 to display all tasks, type 4 to display completed tasks, type 5 to quit \n");
+            string UserInput = Console.ReadLine();
+            int parsedInput = 0;
+            try
+            {
+                parsedInput = int.Parse(UserInput);
+            }
+            catch(Exception error)
+            {
+                //write to file
+                todoList.ErrorLogging(error);
 
+            }
             if (parsedInput == 1)
             {
                 Console.WriteLine("enter task description");
-                string FourthTask = Console.ReadLine();
-                Task task4 = new Task { Description = FourthTask, IsComplete = false };
+                string NextTask = Console.ReadLine();
+                Task task4 = new Task { Description = NextTask, IsComplete = false };
                 todoList.AddTask(task4);
                 Console.WriteLine("Task added.");
-                break;
+                
             }
 
             else if (parsedInput == 2)
             {
-                //    Console.WriteLine("Enter the index of task you want to mark as complete");
-                //    Console.ReadLine();
-                //    todoList.DisplayTasks();
-                //    todoList[4].IsComplete = true;
-                //    break;
-                //}
-                //Console.WriteLine("Enter index of task to mark as completed:");
-                //int taskIndex = int.Parse(Console.ReadLine());
-                //if (taskIndex >= 0 && taskIndex < todoList.Count)
-                //{
-                //    // Mark task as completed and move it to the completedTasks list
-                //    string completedTask = todoList(taskIndex);
-                //    todoList.RemoveAt(taskIndex);
-                //    completedTasks.Add(completedTask);
-                //    Console.WriteLine("Task marked as completed.");
-                //}
-
+                todoList.DisplayTasks();
+                Console.WriteLine("Enter the index of task you want to mark as complete");
+                var indexInput = Console.ReadLine();
+                int parsedindexInput = int.Parse(indexInput);
+                todoList[parsedindexInput].IsComplete = true;
+               
             }
 
             else if (parsedInput == 3)
-            {
+        {
                 Console.WriteLine("All tasks displayed");
                 todoList.DisplayTasks();
-                break;
-            }
+        }
 
             else if (parsedInput == 4)
             {
-                Console.WriteLine("Completed tasks displayed");
+
                 todoList.DisplayCompletedTasks();
-                break;
             }
 
             else if (parsedInput == 5)
             {
+                Console.WriteLine("Exiting the while loop");
                 break;
+
             }
 
-            else
-            {
-                Console.WriteLine("Invalid input.");
-                break;
-            }
-            
-            }
+          
+
+        }
        
         }
 }

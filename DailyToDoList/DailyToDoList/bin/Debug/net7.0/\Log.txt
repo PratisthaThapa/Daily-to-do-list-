@@ -1,0 +1,7 @@
+=============Error Logging ===========
+===========Start============= 3/29/2023 10:17:44 PM
+Error Message: The input string 'abs' was not in a correct format.
+Stack Trace:    at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, ReadOnlySpan`1 value, TypeCode type)
+   at System.Int32.Parse(String s)
+   at Program.Main(String[] args) in /Users/class2025master/Projects/Daily-to-do-list-/DailyToDoList/DailyToDoList/Program.cs:line 97
+===========End============= 3/29/2023 10:17:44 PM
