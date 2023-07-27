@@ -107,3 +107,10 @@ public class TodoListAPI
         return todoList.GetAllTodoItems().Count + 1;
     }
 }
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Welcome to Daily To-Do List!");
+
