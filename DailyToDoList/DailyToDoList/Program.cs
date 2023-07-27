@@ -113,4 +113,16 @@ class Program
     static void Main()
     {
         Console.WriteLine("Welcome to Daily To-Do List!");
+        var api = new TodoListAPI("log.txt");
+
+        while (true)
+        {
+            Console.Write("Enter task (or 'exit' to quit): ");
+            var task = Console.ReadLine();
+
+            if (task.ToLower() == "exit")
+                break;
+
+            api.AddTodoItem(api.GetNextId(), task);
+        }
 
