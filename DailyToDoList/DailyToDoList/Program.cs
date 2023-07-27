@@ -1,149 +1,138 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 
-class Task
+//  Generic Class
+public class TodoItem<T>
 {
-    public string Description { get; set; }
-    public bool IsComplete { get; set; }
+    public T Id { get; set; }
+    public string Task { get; set; }
+    public bool IsCompleted { get; set; }
 }
-class TodoList : List<Task>
+
+public class TodoList
 {
-    public void AddTask(Task task)
+    //  List to store the todo items
+    private List<TodoItem<int>> todos;
+    private string logFilePath;
+
+    public TodoList(string logFilePath)
     {
-        this.Add(task);
+        todos = new List<TodoItem<int>>();
+        this.logFilePath = logFilePath;
     }
 
-    public void DisplayTasks()
+    // Add a todo item to the list
+    public void AddTodoItem(int id, string task)
     {
-        Console.WriteLine("\n Printing all tasks:");
-        Task[] newlist = this.ToArray();
-        for (int index = 0; index <newlist.Length;index++)
+        // Step 1a: SRP - Creating a separate function to validate input
+        if (string.IsNullOrEmpty(task))
         {
-            
-            string taskCompeted = " ";
-            if (newlist[index].IsComplete)
+            LogEvent($"Invalid task: '{task}'");
+            return;
+        }
+
+        // OCP - Adding a new feature without changing existing code
+        var todoItem = new TodoItem<int> { Id = id, Task = task, IsCompleted = false };
+        todos.Add(todoItem);
+    }
+
+    // Mark a todo item as completed
+    public void MarkAsCompleted(int id)
+    {
+        var todoItem = todos.Find(item => item.Id == id);
+        if (todoItem == null)
+        {
+            LogEvent($"Invalid ID: '{id}'");
+            return;
+        }
+
+        todoItem.IsCompleted = true;
+    }
+
+    // Retrieve all todo items
+    public List<TodoItem<int>> GetAllTodoItems()
+    {
+        return todos;
+    }
+
+    //  Implementing log
+    private void LogEvent(string message)
+    {
+        try
+        {
+            using (var writer = new StreamWriter(logFilePath, true))
             {
-                taskCompeted = "X";
+                writer.WriteLine($"{DateTime.Now}: {message}");
             }
-            Console.WriteLine("index={0} {1} [{2}]",index, newlist[index].Description, taskCompeted);
         }
+        catch (Exception ex)
+        {
+            // In case of any error while logging, print to console
+            Console.WriteLine($"Error while writing to log: {ex.Message}");
+        }
+    }
+}
 
+//  Making the application an API
+public class TodoListAPI
+{
+    private TodoList todoList;
 
-       
+    public TodoListAPI(string logFilePath)
+    {
+        todoList = new TodoList(logFilePath);
     }
 
-    public void DisplayCompletedTasks()
+    // Add a todo item
+    public void AddTodoItem(int id, string task)
     {
-        var completedTasks = from task in this
-                             where task.IsComplete == true
-                             select task;
-        Console.WriteLine("\nPrinting completed tasks:");
-
-        foreach (Task task in completedTasks)
-        {
-
-            Console.WriteLine("{0} [{1}]", task.Description, task.IsComplete ? "X" : " ");
-       }
+        todoList.AddTodoItem(id, task);
     }
-    public void ErrorLogging(Exception ex)
-    {
-        string strPath = @"\Log.txt";
-        if (!File.Exists(strPath))
-        {
-            File.Create(strPath).Dispose();
-        }
-        using (StreamWriter sw = File.AppendText(strPath))
-        {
-            sw.WriteLine("=============Error Logging ===========");
-            sw.WriteLine("===========Start============= " + DateTime.Now);
-            sw.WriteLine("Error Message: " + ex.Message);
-            sw.WriteLine("Stack Trace: " + ex.StackTrace);
-            sw.WriteLine("===========End============= " + DateTime.Now);
 
-        }
+    // Mark a todo item as completed
+    public void MarkAsCompleted(int id)
+    {
+        todoList.MarkAsCompleted(id);
+    }
+
+    // Retrieve all todo items
+    public List<TodoItem<int>> GetAllTodoItems()
+    {
+        return todoList.GetAllTodoItems();
+    }
+
+    // Get the next available ID for a new task
+    public int GetNextId()
+    {
+        return todoList.GetAllTodoItems().Count + 1;
     }
 }
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        TodoList todoList = new TodoList();
+        Console.WriteLine("Welcome to Daily To-Do List!");
 
-        // Adding tasks to the list
-        Task task1 = new Task { Description = "Meeting", IsComplete = false };
-        Task task2 = new Task { Description = "Work out", IsComplete = true };
-        Task task3 = new Task { Description = "Finish project", IsComplete = false };
-        todoList.AddTask(task1);
-        todoList.AddTask(task2);
-        todoList.AddTask(task3);
+        var api = new TodoListAPI("log.txt");
 
-        List<string> completedTasks = new List<string>();
-        todoList[0].IsComplete = true;
-
-     
-
-        while ( true) 
-      
-        
+        while (true)
         {
-            Console.WriteLine("type 1 to Add tasks, type 2 to mark task completed, type 3 to display all tasks, type 4 to display completed tasks, type 5 to quit \n");
-            string UserInput = Console.ReadLine();
-            int parsedInput = 0;
-            try
-            {
-                parsedInput = int.Parse(UserInput);
-            }
-            catch(Exception error)
-            {
-                //write to file
-                todoList.ErrorLogging(error);
+            Console.Write("Enter task (or 'exit' to quit): ");
+            var task = Console.ReadLine();
 
-            }
-            if (parsedInput == 1)
-            {
-                Console.WriteLine("enter task description");
-                string NextTask = Console.ReadLine();
-                Task task4 = new Task { Description = NextTask, IsComplete = false };
-                todoList.AddTask(task4);
-                Console.WriteLine("Task added.");
-                
-            }
-
-            else if (parsedInput == 2)
-            {
-                todoList.DisplayTasks();
-                Console.WriteLine("Enter the index of task you want to mark as complete");
-                var indexInput = Console.ReadLine();
-                int parsedindexInput = int.Parse(indexInput);
-                todoList[parsedindexInput].IsComplete = true;
-               
-            }
-
-            else if (parsedInput == 3)
-        {
-                Console.WriteLine("All tasks displayed");
-                todoList.DisplayTasks();
-        }
-
-            else if (parsedInput == 4)
-            {
-
-                todoList.DisplayCompletedTasks();
-            }
-
-            else if (parsedInput == 5)
-            {
-                Console.WriteLine("Exiting the while loop");
+            if (task.ToLower() == "exit")
                 break;
 
-            }
-
-          
-
+            api.AddTodoItem(api.GetNextId(), task);
         }
-       
+
+        Console.WriteLine("Your To-Do List:");
+        // Retrieving and printing all tasks
+        foreach (var todo in api.GetAllTodoItems())
+        {
+            Console.WriteLine($"ID: {todo.Id}, Task: {todo.Task}, Completed: {todo.IsCompleted}");
         }
+    }
 }
