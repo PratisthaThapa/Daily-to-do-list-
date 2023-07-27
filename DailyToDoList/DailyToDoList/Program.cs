@@ -125,4 +125,12 @@ class Program
 
             api.AddTodoItem(api.GetNextId(), task);
         }
+        Console.WriteLine("Your To-Do List:");
+        // Retrieving and printing all tasks
+        foreach (var todo in api.GetAllTodoItems())
+        {
+            Console.WriteLine($"ID: {todo.Id}, Task: {todo.Task}, Completed: {todo.IsCompleted}");
+        }
+    }
+}
 
