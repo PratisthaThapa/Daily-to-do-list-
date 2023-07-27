@@ -9,7 +9,6 @@ public class TodoItem<T>
     public string Task { get; set; }
     public bool IsCompleted { get; set; }
 }
-
 public class TodoList
 {
     //  List to store the todo items
@@ -25,7 +24,7 @@ public class TodoList
     // Add a todo item to the list
     public void AddTodoItem(int id, string task)
     {
-        // Step 1a: SRP - Creating a separate function to validate input
+        // SRP - Creating a separate function to validate input
         if (string.IsNullOrEmpty(task))
         {
             LogEvent($"Invalid task: '{task}'");
@@ -106,33 +105,5 @@ public class TodoListAPI
     public int GetNextId()
     {
         return todoList.GetAllTodoItems().Count + 1;
-    }
-}
-
-class Program
-{
-    static void Main()
-    {
-        Console.WriteLine("Welcome to Daily To-Do List!");
-
-        var api = new TodoListAPI("log.txt");
-
-        while (true)
-        {
-            Console.Write("Enter task (or 'exit' to quit): ");
-            var task = Console.ReadLine();
-
-            if (task.ToLower() == "exit")
-                break;
-
-            api.AddTodoItem(api.GetNextId(), task);
-        }
-
-        Console.WriteLine("Your To-Do List:");
-        // Retrieving and printing all tasks
-        foreach (var todo in api.GetAllTodoItems())
-        {
-            Console.WriteLine($"ID: {todo.Id}, Task: {todo.Task}, Completed: {todo.IsCompleted}");
-        }
     }
 }
