@@ -1,6 +1,5 @@
 # Daily-to-do-list-
-A to do list to keep track of everyday tasks for completion. Tasks can be added and marked as completed. Displays all the tasks added and/or which ones have been completed.
-Features used include create a dictionary and retrieve. A log has been implemented to record errors. A generic class is created and used. Application uses API. 
-
+This application is a to do list to keep track of everyday tasks for completion. Tasks can be added and marked as completed. It can display all tasks that have been added and/or if they have been completed. 
+Features used include created a dictionary and retrieved it. A log has been implemented to record errors. A generic class has been created and used. Application uses API. Comments have been added to explain use of 2 of the solid principles. 
 
 
